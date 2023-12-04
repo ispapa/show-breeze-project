@@ -57,9 +57,12 @@ CREATE TABLE IF NOT EXISTS Events(
   venueId int NOT NULL ,
   name varchar(50),
   startTime DATETIME NOT NULL,
+  performerId int NOT NULL,
   PRIMARY KEY (eventId),
   CONSTRAINT EventToVenue FOREIGN KEY (venueId) REFERENCES Venue(venueId)
-          ON UPDATE CASCADE ON DELETE RESTRICT
+          ON UPDATE CASCADE ON DELETE RESTRICT, 
+  CONSTRAINT EventToPerformer FOREIGN KEY (performerId) REFERENCES User(userId)
+          ON UPDATE CASCADE ON DELETE RESTRICT, 
 );
 
 
