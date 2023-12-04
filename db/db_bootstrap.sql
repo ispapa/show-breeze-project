@@ -34,8 +34,9 @@ INDEX (userId, email, phone)
 );
 
 -- Venue table
-CREATE TABLE IF NOT EXISTS Venue(
+CREATE TABLE IF NOT EXISTS Venues(
   venueId int AUTO_INCREMENT NOT NULL,
+  name varchar(50) NOT NULL,
   capacity int NOT NULL,
   startTime DATETIME NOT NULL,
   endTIME DATETIME,
@@ -97,7 +98,7 @@ CREATE TABLE IF NOT EXISTS Tickets(
 CREATE TABLE IF NOT EXISTS Transactions(
   transactionId int AUTO_INCREMENT NOT NULL,
   sellerId int NOT NULL,
-  buyId int NOT NULL,
+  buyerId int NOT NULL,
   ticketId int NOT NULL,
   date DATETIME NOT NULL,
   PRIMARY KEY (transactionId),
