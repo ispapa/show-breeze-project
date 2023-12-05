@@ -9,9 +9,11 @@ events = Blueprint('events', __name__)
 def get_events():
     cursor = db.get_db().cursor()
     cursor.execute('''
-        SELECT e.name AS event_name, e.startTime, v.name AS venue_name
+        SELECT e.name AS 'Event Name', e.startTime as 'Event Date', v.name AS 'Venue Name'
         FROM Events e
-        JOIN Venues v ON e.venueId = v.venueId''')
+        JOIN Venues v ON e.venueId = v.venueId
+        ORDER BY 'Event Date'
+        ''')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
