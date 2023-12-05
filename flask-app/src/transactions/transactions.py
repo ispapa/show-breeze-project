@@ -14,14 +14,15 @@ def add_new_transaction():
     sellerId = the_data['sellerId']
     buyerId = the_data['buyerId']
     ticketId = the_data['ticketId']
-    date = the_data['date']
+    price = the_data['price']
 
     # Constructing the query
-    query = 'insert into Transactions (sellerId, buyerId, ticketId, date) values ("'
-    query += sellerId + '", "'
-    query += buyerId + '", "'
-    query += ticketId + '", '
-    query += date + ')'
+    query = 'insert into Transactions (sellerId, buyerId, ticketId, date, price) values ("'
+    query += str(sellerId) + '", "'
+    query += str(buyerId) + '", "'
+    query += str(ticketId) + '", '
+    query += 'NOW(), '
+    query += str(price) + ')'
 
     # executing and committing the insert statement 
     cursor = db.get_db().cursor()

@@ -104,6 +104,7 @@ CREATE TABLE IF NOT EXISTS Transactions(
   buyerId int NOT NULL,
   ticketId int NOT NULL,
   date DATETIME NOT NULL,
+  price int NOT NULL,
   PRIMARY KEY (transactionId),
   CONSTRAINT transactionToSeller FOREIGN KEY (sellerId) REFERENCES Users(userId)
       ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -325,33 +326,33 @@ INSERT INTO Tickets (ticketId, eventId, seatId, userId, vip, price, sold) VALUES
 INSERT INTO Tickets (ticketId, eventId, seatId, userId, vip, price, sold) VALUES (50,24,4,10,TRUE,146.22,TRUE);
 
 -- Transactions data 
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (1,3,14,32,'2021-08-11 00:18:27');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (2,1,7,30,'2021-03-18 05:08:43');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (3,4,1,43,'2023-06-20 23:13:19');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (4,6,3,17,'2021-07-10 03:56:52');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (5,21,21,14,'2021-08-05 12:22:08');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (6,2,19,25,'2021-10-29 03:39:34');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (7,2,16,38,'2021-02-13 10:36:05');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (8,7,18,1,'2023-11-25 07:38:29');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (9,5,29,22,'2021-01-29 02:47:25');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (10,11,27,40,'2021-04-26 15:12:35');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (11,25,17,5,'2021-10-25 20:00:47');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (12,11,13,44,'2022-05-19 19:44:41');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (13,20,7,5,'2022-12-25 06:45:09');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (14,20,3,42,'2021-01-05 11:40:24');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (15,23,8,8,'2022-01-30 21:58:02');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (16,8,20,26,'2021-10-16 10:30:31');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (17,26,22,50,'2021-02-16 11:55:00');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (18,9,17,13,'2022-06-05 12:55:43');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (19,8,9,17,'2022-12-29 01:06:19');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (20,23,24,32,'2022-11-15 12:37:43');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (21,8,2,4,'2022-09-23 06:30:44');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (22,18,3,27,'2021-10-10 17:09:18');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (23,5,23,19,'2023-05-04 14:52:00');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (24,26,17,36,'2022-05-02 07:04:02');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (25,23,27,5,'2022-05-17 22:35:22');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (26,14,5,24,'2023-01-03 09:22:56');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (27,12,3,2,'2023-05-31 11:55:14');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (28,28,27,20,'2023-01-21 08:36:22');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (29,11,7,42,'2023-08-14 10:56:35');
-INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date) VALUES (30,9,3,38,'2022-09-26 03:55:36');
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (1,3,14,32,'2021-08-11 00:18:27', 50.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (2,1,7,30,'2021-03-18 05:08:43', 75.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (3,4,1,43,'2023-06-20 23:13:19', 120.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (4,6,3,17,'2021-07-10 03:56:52', 90.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (5,21,21,14,'2021-08-05 12:22:08', 60.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (6,2,19,25,'2021-10-29 03:39:34', 45.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (7,2,16,38,'2021-02-13 10:36:05', 80.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (8,7,18,1,'2023-11-25 07:38:29', 100.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (9,5,29,22,'2021-01-29 02:47:25', 70.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (10,11,27,40,'2021-04-26 15:12:35', 110.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (11,25,17,5,'2021-10-25 20:00:47', 95.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (12,11,13,44,'2022-05-19 19:44:41', 150.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (13,20,7,5,'2022-12-25 06:45:09', 65.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (14,20,3,42,'2021-01-05 11:40:24', 85.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (15,23,8,8,'2022-01-30 21:58:02', 120.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (16,8,20,26,'2021-10-16 10:30:31', 55.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (17,26,22,50,'2021-02-16 11:55:00', 130.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (18,9,17,13,'2022-06-05 12:55:43', 75.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (19,8,9,17,'2022-12-29 01:06:19', 110.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (20,23,24,32,'2022-11-15 12:37:43', 95.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (21,8,2,4,'2022-09-23 06:30:44', 70.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (22,18,3,27,'2021-10-10 17:09:18', 60.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (23,5,23,19,'2023-05-04 14:52:00', 100.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (24,26,17,36,'2022-05-02 07:04:02', 80.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (25,23,27,5,'2022-05-17 22:35:22', 65.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (26,14,5,24,'2023-01-03 09:22:56', 110.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (27,12,3,2,'2023-05-31 11:55:14', 75.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (28,28,27,20,'2023-01-21 08:36:22', 90.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (29,11,7,42,'2023-08-14 10:56:35', 120.00);
+INSERT INTO Transactions (transactionId, sellerId, buyerId, ticketId, date, price) VALUES (30,9,3,38,'2022-09-26 03:55:36', 55.00);
