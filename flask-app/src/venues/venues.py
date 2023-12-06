@@ -3,7 +3,7 @@ import json
 from src import db
 
 
-venues = Blueprint('venue', __name__)
+venues = Blueprint('venues', __name__)
 
 # Get all venues from the DB
 @venues.route('/venues', methods=['GET'])
