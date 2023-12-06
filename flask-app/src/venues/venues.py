@@ -3,10 +3,10 @@ import json
 from src import db
 
 
-venue = Blueprint('venue', __name__)
+venues = Blueprint('venue', __name__)
 
-# Get all customers from the DB
-@venue.route('/venue', methods=['GET'])
+# Get all venues from the DB
+@venues.route('/venues', methods=['GET'])
 def get_venue():
     cursor = db.get_db().cursor()
     cursor.execute('SELECT * from Venues')
@@ -20,11 +20,11 @@ def get_venue():
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get customer detail for customer with particular userID
-@venue.route('/venue/<userID>', methods=['GET'])
+# Get venue details for venues with particular userID
+@venues.route('/venues/<userID>', methods=['GET'])
 def get_customer(userID):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from Venues where id = {0}'.format(userID))
+    cursor.execute('select * from Venues where ownerId = {0}'.format(userID))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
