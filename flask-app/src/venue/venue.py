@@ -3,10 +3,10 @@ import json
 from src import db
 
 
-venue = Blueprint('venue', __name__)
+venues = Blueprint('venues', __name__)
 
 # Get all venues from the DB
-@venue.route('/venue', methods=['GET'])
+@venues.route('/venues', methods=['GET'])
 def get_venue():
     cursor = db.get_db().cursor()
     cursor.execute('SELECT * from Venues')
@@ -20,8 +20,8 @@ def get_venue():
     the_response.mimetype = 'application/json'
     return the_response
 
-# Adds a new Venue to the database
-@venue.route('/venue', methods=['POST'])
+# Adds a new venue to the database
+@venues.route('/venues', methods=['POST'])
 def add_new_venue():
     
     # collecting data from the request object 
@@ -59,12 +59,12 @@ def add_new_venue():
     cursor.execute(query)
     db.get_db().commit()
     
-    return "Successfully posted a new Venue named " + name
+    return "Successfully posted a new venues named " + name
 
 
-# Get venue detail for Venues with particular userID
-@venue.route('/venue/<userID>', methods=['GET'])
-def get_venue(venueId):
+# Get venues detail for Venues with particular userID
+@venues.route('/venues/<userID>', methods=['GET'])
+def get_venue_from_venueId(venueId):
     cursor = db.get_db().cursor()
     cursor.execute('select * from Venues where id = {0}'.format(venueId))
     row_headers = [x[0] for x in cursor.description]
@@ -79,7 +79,7 @@ def get_venue(venueId):
 
 # Updates all the data for the venueId with the request.json,
 # Ideally if some data does not change the request.json will have it unchanged
-@venue.route('/venue/<userID>', methods=['PUT'])
+@venues.route('/venues/<userID>', methods=['PUT'])
 def update_venue(venueId):
     #Getting the Data
     the_data = request.json
@@ -116,21 +116,21 @@ def update_venue(venueId):
     cursor.execute(venue_update)
     db.get_db().commit()
 
-    return "successfully updated venue #{0}!".format(venueId)
+    return "successfully updated venues #{0}!".format(venueId)
 
 # Deletes a venue based on the veneuId
-@venue.route('/venue/<userID>', methods=['DELETE'])
+@venues.route('/venues/<userID>', methods=['DELETE'])
 def delete_venue(venueId):
     venue_delete = 'DELETE FROM Venues WHERE venueId = ' + str(venueId) + ';'
     
     cursor = db.get_db().cursor()
     cursor.execute(venue_delete)
     db.get_db().commit()
-    return "successfully deleted venue #{0}!".format(venueId)
+    return "successfully deleted venues #{0}!".format(venueId)
 
-# Get venue detail for Venues with particular userID
-@venue.route('/venue/<userID>/seats', methods=['GET'])
-def get_venue(venueId):
+# Get a venue detail for Venues with particular userID
+@venues.route('/venues/<userID>/seats', methods=['GET'])
+def get_venue_seats_from_venueId(venueId):
     cursor = db.get_db().cursor()
     cursor.execute('select * from Seats where venueId = {0}'.format(venueId))
     row_headers = [x[0] for x in cursor.description]
@@ -143,8 +143,8 @@ def get_venue(venueId):
     the_response.mimetype = 'application/json'
     return the_response
 
-# Adds a new seat to a given venue by their venueId
-@venue.route('/venue/<userID>/seats', methods=['POST'])
+# Adds a new seat to a given venues by their venueId
+@venues.route('/venues/<userID>/seats', methods=['POST'])
 def add_new_venue_seat():
     
     # collecting data from the request object 
