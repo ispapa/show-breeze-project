@@ -26,7 +26,7 @@ def get_seats(venueId):
 @venues.route('/venues/<int:venueId>/seats', methods=['GET'])
 def get_available_seats(venueId):
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT * FROM Seats WHERE venueId = ? AND availability = ?;', (venueId, True))
+    cursor.execute('SELECT * FROM Seats WHERE venueId = %s AND availability = %s;', (str(venueId), True))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     venue_data = cursor.fetchall()
