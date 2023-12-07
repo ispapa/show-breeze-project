@@ -7,7 +7,7 @@ venues = Blueprint('venues', __name__)
 
 # Get all venues from the DB
 @venues.route('/venues', methods=['GET'])
-def get_venue():
+def get_venues():
     cursor = db.get_db().cursor()
     cursor.execute('SELECT * from Venues')
     row_headers = [x[0] for x in cursor.description]
@@ -151,6 +151,7 @@ def add_new_venue_seat(venueId):
 
     #extracting the variable=
     availability = the_data['seat_availability']
+
     seatRow = the_data['seat_seatRow']
     seatNumber = the_data['seat_seatNumber']
 
