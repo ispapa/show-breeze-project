@@ -29,16 +29,16 @@ def add_new_venue():
     current_app.logger.info(the_data)
 
     #extracting the variable=
-    name = the_data['venue_name']
-    capacity = the_data['venue_capacity']
-    startTime = the_data['venue_start']
-    endTime = the_data['venue_end']
-    price = the_data['venue_price']
-    street = the_data['venue_street']
-    city = the_data['venue_city']
-    state = the_data['venue_state']
-    zip = the_data['venue_zip']
-    ownerId = the_data['venue_ownerId']
+    name = the_data['name']
+    capacity = the_data['capacity']
+    startTime = the_data['start']
+    endTime = the_data['end']
+    price = the_data['price']
+    street = the_data['street']
+    city = the_data['city']
+    state = the_data['state']
+    zip = the_data['zip']
+    ownerId = the_data['ownerId']
 
     # Constructing the query
     query = 'insert into Venues (name, capacity, startTime, endtime, price, street, city, state, zip, ownerId) values ("'
@@ -63,10 +63,10 @@ def add_new_venue():
 
 
 # Get venues detail for Venues with particular userID
-@venues.route('/venues/<userID>', methods=['GET'])
+@venues.route('/venues/<int:venueId>', methods=['GET'])
 def get_venue_from_venueId(venueId):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from Venues where id = {0}'.format(venueId))
+    cursor.execute('select * from Venues where venueId = ' + str(venueId))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -79,24 +79,23 @@ def get_venue_from_venueId(venueId):
 
 # Updates all the data for the venueId with the request.json,
 # Ideally if some data does not change the request.json will have it unchanged
-@venues.route('/venues/<userID>', methods=['PUT'])
+@venues.route('/venues/<int:venueId>', methods=['PUT'])
 def update_venue(venueId):
     #Getting the Data
     the_data = request.json
     current_app.logger.info(the_data)
 
     #extracting the variables
-    name = the_data['venue_name']
-    capacity = the_data['venue_capacity']
-    startTime = the_data['venue_start']
-    endTime = the_data['venue_end']
-    price = the_data['venue_price']
-    street = the_data['venue_street']
-    city = the_data['venue_city']
-    state = the_data['venue_state']
-    zip = the_data['venue_zip']
-    ownerId = the_data['venue_ownerId']
-    new_venueId = the_data['venueId']
+    name = the_data['name']
+    capacity = the_data['capacity']
+    startTime = the_data['start']
+    endTime = the_data['end']
+    price = the_data['price']
+    street = the_data['street']
+    city = the_data['city']
+    state = the_data['state']
+    zip = the_data['zip']
+    ownerId = the_data['ownerId']
     
     # update price + user id 
     venue_update = 'UPDATE `Venues` SET name = ' + name
@@ -109,7 +108,6 @@ def update_venue(venueId):
     + ', state = ' + state
     + ', zip = ' + zip 
     + ', ownerId = ' + str(ownerId)  
-    + ', venueId = ' + str(new_venueId)  
     + ' WHERE venueId = ' + str(venueId) + ';'
 
     cursor = db.get_db().cursor()
@@ -119,7 +117,7 @@ def update_venue(venueId):
     return "successfully updated venues #{0}!".format(venueId)
 
 # Deletes a venue based on the veneuId
-@venues.route('/venues/<userID>', methods=['DELETE'])
+@venues.route('/venues/<int:venueId>', methods=['DELETE'])
 def delete_venue(venueId):
     venue_delete = 'DELETE FROM Venues WHERE venueId = ' + str(venueId) + ';'
     
@@ -129,7 +127,7 @@ def delete_venue(venueId):
     return "successfully deleted venues #{0}!".format(venueId)
 
 # Get a venue detail for Venues with particular userID
-@venues.route('/venues/<userID>/seats', methods=['GET'])
+@venues.route('/venues/<venueId>/seats', methods=['GET'])
 def get_venue_seats_from_venueId(venueId):
     cursor = db.get_db().cursor()
     cursor.execute('select * from Seats where venueId = {0}'.format(venueId))
@@ -144,15 +142,14 @@ def get_venue_seats_from_venueId(venueId):
     return the_response
 
 # Adds a new seat to a given venues by their venueId
-@venues.route('/venues/<userID>/seats', methods=['POST'])
-def add_new_venue_seat():
+@venues.route('/venues/<venueId>/seats', methods=['POST'])
+def add_new_venue_seat(venueId):
     
     # collecting data from the request object 
     the_data = request.json
     current_app.logger.info(the_data)
 
     #extracting the variable=
-    venueId = the_data['seat_venue_id']
     availability = the_data['seat_availability']
     seatRow = the_data['seat_seatRow']
     seatNumber = the_data['seat_seatNumber']
