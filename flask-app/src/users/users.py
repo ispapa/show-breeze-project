@@ -86,7 +86,7 @@ def update_users(userId):
     tixQuota = the_data['tixQuota']
 
     # Constructing the query
-    query = 'UPDATE `Venues` SET firstName = ' + firstName
+    query = 'UPDATE `Users` SET firstName = ' + firstName
     + ", lastName = " + lastName
     + ", phone = " + str(phone)
     + ", email = " + email
@@ -102,3 +102,18 @@ def update_users(userId):
     db.get_db().commit()
     
     return "Successfully posted a new user named " + firstName + " " + lastName 
+
+# Get all users from the DB
+@users.route('/users/venues/<userId>', methods=['GET'])
+def get_venues_by_userId(userId):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT * from Venues where ownerId = {0}'.format(userId))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response

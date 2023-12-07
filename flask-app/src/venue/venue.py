@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response, current_app
 import json
 from src import db
 
@@ -31,8 +31,8 @@ def add_new_venue():
     #extracting the variable=
     name = the_data['name']
     capacity = the_data['capacity']
-    startTime = the_data['start']
-    endTime = the_data['end']
+    startTime = the_data['startTime']
+    endTime = the_data['endTime']
     price = the_data['price']
     street = the_data['street']
     city = the_data['city']
@@ -44,14 +44,14 @@ def add_new_venue():
     query = 'insert into Venues (name, capacity, startTime, endtime, price, street, city, state, zip, ownerId) values ("'
     query += name + '", "'
     query += str(capacity) + '", "'
-    query += startTime + '", '
-    query += endTime + '", '
-    query += str(price) + '", '
-    query += street + '", '
-    query += city + '", '
-    query += state + '", '
-    query += zip + '", '
-    query += str(ownerId) + '", '')'
+    query += startTime + '", "'
+    query += endTime + '", "'
+    query += str(price) + '", "'
+    query += street + '", "'
+    query += city + '", "'
+    query += state + '", "'
+    query += str(zip) + '", "'
+    query += str(ownerId) + '")'
     current_app.logger.info(query)
 
     # executing and committing the insert statement 
@@ -88,8 +88,8 @@ def update_venue(venueId):
     #extracting the variables
     name = the_data['name']
     capacity = the_data['capacity']
-    startTime = the_data['start']
-    endTime = the_data['end']
+    startTime = the_data['startTime']
+    endTime = the_data['endTime']
     price = the_data['price']
     street = the_data['street']
     city = the_data['city']
@@ -98,17 +98,17 @@ def update_venue(venueId):
     ownerId = the_data['ownerId']
     
     # update price + user id 
-    venue_update = 'UPDATE `Venues` SET name = ' + name
-    + ', capacity = ' + capacity
-    + ', startTime = ' + startTime
-    + ', endTime = ' + endTime
-    + ', price = ' + str(price) 
-    + ', street = ' + street
-    + ', city = ' + city
-    + ', state = ' + state
-    + ', zip = ' + zip 
-    + ', ownerId = ' + str(ownerId)  
-    + ' WHERE venueId = ' + str(venueId) + ';'
+    venue_update = 'UPDATE `Venues` SET name = "' + name
+    venue_update += '", capacity = "' + str(capacity)
+    venue_update += '", startTime = "' + startTime
+    venue_update += '", endTime = "' + endTime
+    venue_update += '", price = "' + str(price) 
+    venue_update += '", street = "' + street
+    venue_update += '", city = "' + city
+    venue_update += '", state = "' + state
+    venue_update += '", zip = "' + str(zip) 
+    venue_update += '", ownerId = "' + str(ownerId)  
+    venue_update += '" WHERE venueId = ' + str(venueId) + ';'
 
     cursor = db.get_db().cursor()
     cursor.execute(venue_update)
