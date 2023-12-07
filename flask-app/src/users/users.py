@@ -58,7 +58,7 @@ def add_users():
 @users.route('/users/<int:userId>', methods=['GET'])
 def get_users_from_userId(userId):
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT * from Users where id = {0}'.format(userId))
+    cursor.execute('SELECT * from Users where userId = {0}'.format(userId))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
