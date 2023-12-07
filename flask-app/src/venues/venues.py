@@ -62,7 +62,7 @@ def add_new_venue():
     return "Successfully posted a new venues named " + name
 
 
-# Get venues detail for Venues with particular userID
+# Get venues detail for Venues with particular venueId
 @venues.route('/venues/<int:venueId>', methods=['GET'])
 def get_venue_from_venueId(venueId):
     cursor = db.get_db().cursor()
@@ -140,6 +140,36 @@ def get_venue_seats_from_venueId(venueId):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
+## viewing all seats in a venue
+@venues.route('/venues/<int:venueId>', methods=['GET'])
+##getting all seats for each venueId
+def get_seats(venueId):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT * from Seats where venueId = {0}'.format(venueId))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# View the seats available at the venue
+@venues.route('/venues/<int:eventId>/seats', methods=['GET'])
+def get_available_seats(eventId):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT * FROM Seats WHERE venueId = %s AND availability = %s;', (str(eventId), True))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    venue_data = cursor.fetchall()
+    for row in venue_data:
+        json_data.append(dict(zip(row_headers, row)))
+    response = jsonify(json_data)
+    response.status_code = 200
+    return response
 
 # Adds a new seat to a given venues by their venueId
 @venues.route('/venues/<venueId>/seats', methods=['POST'])
