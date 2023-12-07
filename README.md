@@ -1,4 +1,6 @@
-# MySQL + Flask Boilerplate Project
+# ShowBreeze
+
+Showbreeze is an event and ticketing management app catering to concerts, theater, plays, musicals, and more. It seamlessly connects event-goers, performers, venue managers, and organizers, offering easy seat selection, ticket purchase, and resale options while prioritizing smaller events often overlooked by major platforms.
 
 This repo contains a boilerplate setup for spinning up 3 Docker containers: 
 1. A MySQL 8 container for obvious reasons
