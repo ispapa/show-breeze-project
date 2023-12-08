@@ -158,10 +158,12 @@ def get_seats(venueId):
     return the_response
 
 # View the seats available at the venue
-@venues.route('/venues/<int:eventId>/seats/availabile', methods=['GET'])
+@venues.route('/venues/<int:eventId>/seats/available', methods=['GET'])
 def get_available_seats(eventId):
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT * FROM Seats WHERE venueId = %s AND availability = %s;', (str(eventId), True))
+    cursor.execute('''SELECT s.seatId as 'Seat ID', s.seatRow as 'Seat Row', s.seatNumber as 'Seat Number', t.price as 'Ticket Price'
+                    FROM Seats s JOIN Tickets t ON s.seatId = t.seatId
+                    WHERE venueId = %s AND availability = %s;''', (str(eventId), True))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     venue_data = cursor.fetchall()

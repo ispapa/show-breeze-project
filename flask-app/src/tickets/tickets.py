@@ -65,3 +65,23 @@ def update_ticket(ticketId):
     db.get_db().commit()
 
     return "successfully edited ticket #{0}!".format(ticketId)
+
+
+# Purchase the ticket initially by changing the userId associated (Not for Resale)
+@tickets.route('/buyTickets/<int:seatId>/seats', methods=['PUT'])
+def buy_ticket(seatId):
+
+    the_data = request.json
+    seatId = the_data["Seat ID"]
+    userId = 21
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT ticketId FROM Tickets WHERE seatId = ' + str(seatId))
+    ticketId = cursor.fetchone()[0]
+    if not userId:
+        return 'No user to add to!', 404
+
+    ticket_query = 'UPDATE Tickets SET userId = ' + str(userId) + ', sold = True WHERE ticketId = ' + str(ticketId) + ';'
+    cursor.execute(ticket_query)
+    db.get_db().commit()
+
+    return "Successfully assigned ticket #{0} to user #{1}".format(ticketId, userId)
