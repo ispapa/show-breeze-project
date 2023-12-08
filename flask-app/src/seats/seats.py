@@ -15,15 +15,17 @@ def update_seat(seatId):
     #extracting the variable=
     venueId = the_data['venueId']
     availability = the_data['availability']
+    availability_num = 0
+    if (availability) : availability_num = 1
     seatRow = the_data['seatRow']
     seatNumber = the_data['seatNumber']
 
     # Constructing the query
-    seats_update = 'UPDATE `Seats` SET seatId = "' + seatId
-    seats_update += '", venueId = "' + venueId
-    seats_update += '", availability = "' + availability
+    seats_update = 'UPDATE `Seats` SET seatId = "' + str(seatId)
+    seats_update += '", venueId = "' + str(venueId)
+    seats_update += '", availability = "' + str(availability_num)
     seats_update += '", seatRow = "' + seatRow
-    seats_update += '", seatNumber = "' + seatNumber
+    seats_update += '", seatNumber = "' + str(seatNumber)
     seats_update += '" WHERE seatId = ' + str(seatId) + ';'
 
 
