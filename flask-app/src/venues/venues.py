@@ -180,16 +180,17 @@ def add_new_venue_seat(venueId):
     current_app.logger.info(the_data)
 
     #extracting the variable=
-    availability = the_data['seat_availability']
-
-    seatRow = the_data['seat_seatRow']
-    seatNumber = the_data['seat_seatNumber']
+    availability = the_data['availability']
+    availability_num = 0
+    if (availability) : availability_num = 1
+    seatRow = the_data['seatRow']
+    seatNumber = the_data['seatNumber']
 
     # Constructing the query
     query = 'insert into Seats (venueId, availability, seatRow, seatNumber) values ("'
-    query += venueId + '", "'
-    query += str(availability) + '", "'
-    query += str(seatRow) + '", '
+    query += str(venueId) + '", "'
+    query += str(availability_num) + '", "'
+    query += seatRow + '", "'
     query += str(seatNumber) + '")'
     current_app.logger.info(query)
 
@@ -198,4 +199,4 @@ def add_new_venue_seat(venueId):
     cursor.execute(query)
     db.get_db().commit()
     
-    return "Successfully posted a new seat in venueId = " + venueId + ", seatRow = " + seatRow + ", seatNumber = " + seatNumber 
+    return "Successfully posted a new seat in venueId = " + str(venueId) + ", seatRow = " + seatRow + ", seatNumber = " + str(seatNumber) 

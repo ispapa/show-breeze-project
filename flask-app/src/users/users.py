@@ -103,7 +103,7 @@ def update_users(userId):
     
     return "Successfully posted a new user named " + firstName + " " + lastName 
 
-# Get all users from the DB
+# Get all the venues from a given userId
 @users.route('/users/venues/<userId>', methods=['GET'])
 def get_venues_by_userId(userId):
     cursor = db.get_db().cursor()
