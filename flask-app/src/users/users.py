@@ -117,3 +117,33 @@ def get_venues_by_userId(userId):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
+# Get venues of a specific user from the DB
+@users.route('/users/<int:userId>/venues', methods=['GET'])
+def get_venue_from_user(userId):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT * FROM Venues WHERE venueId in (SELECT venueId from Events WHERE performerId = {0})'.format(userId))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# Get events of a specific user from the DB
+@users.route('/users/<int:userId>/events', methods=['GET'])
+def get_event_from_user(userId):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT * FROM Events WHERE eventId in (SELECT eventId from Events WHERE performerId = {0})'.format(userId))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response

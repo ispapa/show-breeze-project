@@ -43,4 +43,3 @@ def delete_seat(seatId):
     cursor.execute(venue_delete)
     db.get_db().commit()
     return "successfully deleted seat #{0}!".format(venueId)
-

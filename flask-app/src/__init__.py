@@ -38,6 +38,7 @@ def create_app():
     from src.transactions.transactions  import transactions
     from src.venues.venues import venues 
     from src.users.users import users
+    from src.seats.seats import seats
 
     # Register the routes from each Blueprint with the app object
     # and give a url prefix to each
