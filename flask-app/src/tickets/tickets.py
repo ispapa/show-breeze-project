@@ -72,16 +72,15 @@ def update_ticket(ticketId):
 def buy_ticket(seatId):
 
     the_data = request.json
-    venueId = the_data["venueId"]
-    seatId = the_data["seatId"]
+    seatId = the_data["Seat ID"]
     userId = 21
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT ticketId FROM Tickets WHERE seatId = %i AND venueId = %i', (seatId, venueId))
+    cursor.execute('SELECT ticketId FROM Tickets WHERE seatId = ' + str(seatId))
     ticketId = cursor.fetchone()[0]
     if not userId:
         return 'No user to add to!', 404
 
-    ticket_query = 'UPDATE Tickets SET userId = ' + str(userId) + ', price = ' + str(50) + ', availability = False WHERE ticketId = ' + str(ticketId) + ';'
+    ticket_query = 'UPDATE Tickets SET userId = ' + str(userId) + ', sold = True WHERE ticketId = ' + str(ticketId) + ';'
     cursor.execute(ticket_query)
     db.get_db().commit()
 
