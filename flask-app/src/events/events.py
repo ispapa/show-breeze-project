@@ -9,7 +9,7 @@ events = Blueprint('events', __name__)
 def get_events():
     cursor = db.get_db().cursor()
     cursor.execute('''
-        SELECT e.eventId as 'Event ID', e.name AS 'Event Name', e.startTime as 'Event Date', v.name AS 'Venue Name'
+        SELECT e.eventId as 'Event ID', e.name AS 'Event Name', e.startTime as 'Event Date', v.name AS 'Venue Name', v.venueId AS 'Venue ID'
         FROM Events e
         JOIN Venues v ON e.venueId = v.venueId
         ORDER BY 'Event Date'
