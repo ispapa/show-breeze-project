@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response, current_app
 import json
 from src import db
 
@@ -29,10 +29,10 @@ def update_seat(seatId):
 
     # executing and committing the insert statement 
     cursor = db.get_db().cursor()
-    cursor.execute(query)
+    cursor.execute(seats_update)
     db.get_db().commit()
     
-    return "Successfully posted a new seat named " + name
+    return "Successfully updated seat with ID " + str(seatId)
 
 # Deletes a venue based on the veneuId
 @seats.route('/seats/<int:seatId>', methods=['DELETE'])
@@ -40,6 +40,7 @@ def delete_seat(seatId):
     seat_delete = 'DELETE FROM Seats WHERE seatId = ' + str(seatId) + ';'
     
     cursor = db.get_db().cursor()
-    cursor.execute(venue_delete)
+    cursor.execute(seat_delete)
     db.get_db().commit()
-    return "successfully deleted seat #{0}!".format(venueId)
+    return "successfully deleted seat #{0}!".format(seatId)
+
